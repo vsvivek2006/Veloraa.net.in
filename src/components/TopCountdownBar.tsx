@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 
@@ -36,7 +36,7 @@ export default function TopCountdownBar() {
       className="gta-widget gta-bar GSC-BAR-SPbbFrxoIbbs"
       style={{ backgroundColor: "#0c1832", width: "100%", position: "relative", zIndex: 90 }}
     >
-      {/* Embedded styles exactly matching live site GTA app */}
+      {/* Exact live GTA widget styles */}
       <style>{`
         .gta-widget.GSC-BAR-SPbbFrxoIbbs {
           --gta-banner-desktop-ratio: 100%;
@@ -50,73 +50,119 @@ export default function TopCountdownBar() {
           --gta-content-desktop-gap: 24px;
           --gta-content-mobile-gap: 6px;
         }
+        .gta-widget.gta-bar.GSC-BAR-SPbbFrxoIbbs {
+          position: relative;
+          top: 0;
+          bottom: unset;
+          right: 0;
+          left: 0;
+          z-index: 90;
+          width: 100%;
+        }
         .gta-content__container.GSC-BAR-SPbbFrxoIbbs {
           display: grid;
           grid-template-columns: 40px 1fr 40px;
-          background-color: #0c1832;
+          border: initial;
+          background: #0c1832;
+          max-width: 100%;
+          box-sizing: border-box;
+          position: relative;
+          z-index: 1;
         }
-        .gta-content__wrap.GSC-BAR-SPbbFrxoIbbs {
+        .gta-content.GSC-BAR-SPbbFrxoIbbs {
           display: flex;
           flex-flow: var(--gta-content-direction) var(--gta-content-wrap);
+          gap: var(--gta-content-desktop-gap);
+          box-sizing: border-box;
+          padding: 8px 28px;
           justify-content: center;
           align-items: center;
-          gap: var(--gta-content-desktop-gap);
-          padding: 8px 28px;
+          max-width: 100%;
         }
         .gta-content__bar-texts.GSC-BAR-SPbbFrxoIbbs {
-          font-size: 16px;
-          font-weight: 700;
-          color: #ffffff;
-          line-height: 1.2;
-          letter-spacing: 0;
-          text-align: center;
+          display: flex;
+          flex-flow: column nowrap;
         }
-        .gta-timer__wrapper {
+        .gta-content__text.text-wwkXTmJaNiaX {
+          width: auto;
+          text-align: center;
+          font-family: inherit;
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 1.2;
+          color: #ffffff;
+          text-transform: unset;
+          letter-spacing: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        .gta-content__timer.timer-oaUdrVXCTwMm {
+          display: inline-flex;
+          vertical-align: middle;
+          border: unset;
+          background: unset;
+          width: 224px;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          -webkit-backdrop-filter: none;
+        }
+        .gta-timer__svg {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+        .gta-timer__wrapper.timer-oaUdrVXCTwMm {
           display: flex;
           flex-flow: row nowrap;
           justify-content: center;
           align-items: center;
+          gap: 6px;
           margin: 0;
           padding: 0;
-          overflow: visible;
           direction: ltr;
+          height: 100%;
         }
-        .gta-timer__unit {
+        .gta-timer__unit.timer-oaUdrVXCTwMm {
           display: flex;
           flex-flow: column nowrap;
           justify-content: center;
           align-items: center;
-          width: 60px;
-          max-width: 60px;
-          overflow: hidden;
+          border: unset;
+          background: unset;
+          width: 95px;
+          text-align: center;
         }
-        .gta-timer__unit-number {
-          font-size: 24px;
-          font-weight: 600;
+        .gta-timer__unit-value.timer-oaUdrVXCTwMm {
           color: #ffffff;
+          font-size: 60px;
+          font-family: inherit;
+          font-weight: 600;
           line-height: 1;
-          text-align: center;
-          letter-spacing: 0;
           margin: 0;
-          display: block;
+          padding: 0;
         }
-        .gta-timer__unit-label {
-          font-size: 10px;
+        .gta-timer__unit-label.timer-oaUdrVXCTwMm {
+          color: #ffffff;
+          font-size: 24px;
+          font-family: inherit;
           font-weight: 500;
-          color: rgba(255,255,255,0.75);
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          line-height: 1.4;
-          display: block;
-          text-align: center;
+          text-transform: unset;
+          line-height: 2;
+          margin: 0;
+          padding: 0;
         }
-        .gta-timer__separator {
-          font-family: serif;
-          font-size: 22px;
+        .gta-timer__separator.timer-oaUdrVXCTwMm {
           color: #ebebeb;
-          padding-bottom: 8px;
+          padding-bottom: 5px;
+          font-size: 48px;
           line-height: 1;
-          margin: 0 2px;
+          font-weight: 400;
+        }
+        .gta-bar__close-btn-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         .gta-content__close-btn {
           background-color: transparent;
@@ -130,45 +176,77 @@ export default function TopCountdownBar() {
         }
         .gta-content__close-btn > svg { width: 16px; height: 16px; }
         .gta-content__close-btn:hover { transform: rotate(90deg); filter: opacity(.7); }
+
+        @media screen and (max-width: 768px) {
+          .gta-content__container.GSC-BAR-SPbbFrxoIbbs {
+            grid-template-columns: 28px 1fr 28px;
+          }
+          .gta-content.GSC-BAR-SPbbFrxoIbbs {
+            gap: var(--gta-content-mobile-gap);
+            justify-content: center;
+            align-items: center;
+            padding: 4px 0;
+          }
+          .gta-content__text.text-wwkXTmJaNiaX {
+            font-size: 16px;
+            line-height: 1.3;
+          }
+          .gta-content__timer.timer-oaUdrVXCTwMm {
+            width: 160px;
+          }
+          .gta-bar__close-btn-container {
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 8px 8px 0 0;
+          }
+        }
       `}</style>
 
       <div className="gta-content__container GSC-BAR-SPbbFrxoIbbs">
-        {/* Left spacer for close button balance */}
+        {/* Left spacer for symmetry */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>&nbsp;</div>
 
         {/* Center: text + timer */}
-        <div className="gta-content__wrap GSC-BAR-SPbbFrxoIbbs">
+        <div className="gta-content GSC-BAR-SPbbFrxoIbbs">
           {/* Announcement text */}
           <div className="gta-content__bar-texts GSC-BAR-SPbbFrxoIbbs">
-            3rd Anniversary Sale is Live! &nbsp;Price Increases in 🔥
+            <div className="gta-content__text text-wwkXTmJaNiaX">
+              3rd Anniversary Sale is Live! &nbsp;Price Increases in 🔥
+            </div>
           </div>
 
-          {/* Timer */}
-          <div className="gta-timer__wrapper">
-            <div className="gta-timer__unit">
-              <span className="gta-timer__unit-number">{timeLeft.days}</span>
-              <span className="gta-timer__unit-label">Days</span>
-            </div>
-            <span className="gta-timer__separator">:</span>
-            <div className="gta-timer__unit">
-              <span className="gta-timer__unit-number">{timeLeft.hours}</span>
-              <span className="gta-timer__unit-label">Hours</span>
-            </div>
-            <span className="gta-timer__separator">:</span>
-            <div className="gta-timer__unit">
-              <span className="gta-timer__unit-number">{timeLeft.minutes}</span>
-              <span className="gta-timer__unit-label">Minutes</span>
-            </div>
-            <span className="gta-timer__separator">:</span>
-            <div className="gta-timer__unit">
-              <span className="gta-timer__unit-number">{timeLeft.seconds}</span>
-              <span className="gta-timer__unit-label">Seconds</span>
-            </div>
+          {/* SVG Scaled Timer — Exact 224px width x 48.375px height (total bar = 64.375px) */}
+          <div className="gta-content__timer timer-oaUdrVXCTwMm">
+            <svg height="100%" viewBox="0 0 500 108" preserveAspectRatio="xMinYMin meet" className="gta-timer__svg">
+              <foreignObject width="99.9%" height="100%" xmlns="http://www.w3.org/1999/xhtml">
+                <div className="gta-timer__wrapper timer-oaUdrVXCTwMm">
+                  <div className="gta-timer__unit timer-oaUdrVXCTwMm">
+                    <h4 data-timer-days="true" className="gta-timer__unit-value timer-oaUdrVXCTwMm">{timeLeft.days}</h4>
+                    <div className="gta-timer__unit-label timer-oaUdrVXCTwMm">Days</div>
+                  </div>
+                  <div className="gta-timer__separator timer-oaUdrVXCTwMm">:</div>
+                  <div className="gta-timer__unit timer-oaUdrVXCTwMm">
+                    <h4 data-timer-hours="true" className="gta-timer__unit-value timer-oaUdrVXCTwMm">{timeLeft.hours}</h4>
+                    <div className="gta-timer__unit-label timer-oaUdrVXCTwMm">Hours</div>
+                  </div>
+                  <div className="gta-timer__separator timer-oaUdrVXCTwMm">:</div>
+                  <div className="gta-timer__unit timer-oaUdrVXCTwMm">
+                    <h4 data-timer-minutes="true" className="gta-timer__unit-value timer-oaUdrVXCTwMm">{timeLeft.minutes}</h4>
+                    <div className="gta-timer__unit-label timer-oaUdrVXCTwMm">Minutes</div>
+                  </div>
+                  <div className="gta-timer__separator timer-oaUdrVXCTwMm">:</div>
+                  <div className="gta-timer__unit timer-oaUdrVXCTwMm">
+                    <h4 data-timer-seconds="true" className="gta-timer__unit-value timer-oaUdrVXCTwMm">{timeLeft.seconds}</h4>
+                    <div className="gta-timer__unit-label timer-oaUdrVXCTwMm">Seconds</div>
+                  </div>
+                </div>
+              </foreignObject>
+            </svg>
           </div>
         </div>
 
         {/* Right: close button */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div className="gta-bar__close-btn-container">
           <button
             className="gta-content__close-btn"
             onClick={() => setVisible(false)}
