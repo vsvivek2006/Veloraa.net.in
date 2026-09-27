@@ -17,16 +17,27 @@ export default function ContactPage() {
   };
 
   return (
-    <main id="MainContent" className="content-for-layout focus-none" role="main">
+    <main id="MainContent" className="content-for-layout focus-none" role="main" tabIndex={-1}>
+      {/* 1. Main Page Title & Content */}
       <section
         id="shopify-section-template--26661922210110__main"
         className="shopify-section section"
       >
-        <div className="page-width page-width--narrow max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <h1 className="main-page-title page-title h0 text-3xl sm:text-4xl font-normal text-[#020b1f] mb-6">
+        <div className="page-width page-width--narrow max-w-[750px] mx-auto px-4 sm:px-6 pt-7 sm:pt-9 pb-4">
+          <h1
+            className="main-page-title page-title h0 scroll-trigger animate--fade-in"
+            style={{
+              fontSize: "40px",
+              lineHeight: "52px",
+              color: "#020b1f",
+              fontWeight: 500,
+              fontFamily: "'Poppins', sans-serif",
+              marginBottom: "20px",
+            }}
+          >
             Contact
           </h1>
-          <div className="rte text-sm text-gray-700 space-y-3 leading-relaxed">
+          <div className="rte text-[14px] text-[#2c3e50] space-y-4 leading-[1.6]">
             <p>
               Got a question? We are happy to help you. Please contact us using the
               form below or you can
@@ -44,14 +55,14 @@ export default function ContactPage() {
               <strong>Please expect our reply within 24 to 48 hours.</strong>
             </p>
             <p>
-              <strong>Working Hours: (MON-SAT : 11:00 AM TO 6:00 PM)</strong>
+              <strong>Working Hours: (MON-SAT : 11: 00 AM TO 6:00 PM)</strong>
             </p>
             <p>
               <strong>Note:</strong> Please attach your Order ID or Phone Number at
               the time of filling this form so that we can easily track your order
               detail.
             </p>
-            <div className="pt-4 border-t border-gray-100 text-xs text-gray-600 space-y-1">
+            <div className="pt-4 border-t border-gray-100 text-[13px] text-[#475569] space-y-1">
               <p>
                 <strong>Legal Name:</strong> MONIKA ENTERPRISES
               </p>
@@ -67,13 +78,15 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* 2. Contact Form */}
       <section
         id="shopify-section-template--26661922210110__form"
         className="shopify-section section pb-16"
       >
-        <div className="page-width page-width--narrow max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="contact page-width page-width--narrow max-w-[750px] mx-auto px-4 sm:px-6 pt-4">
+          <h2 className="sr-only">Contact form</h2>
           {submitted ? (
-            <div className="p-6 bg-green-50 border border-green-200 rounded-lg text-center text-green-800">
+            <div className="p-6 bg-[#f0fdf4] border border-[#bbf7d0] rounded-lg text-center text-[#166534]">
               <h3 className="font-semibold text-base mb-1">
                 Thank you for contacting us!
               </h3>
@@ -82,75 +95,71 @@ export default function ContactPage() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} id="ContactForm" className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">
-                    Name
-                  </label>
+                <div className="field">
                   <input
                     type="text"
                     required
+                    id="ContactForm-name"
+                    name="contact[Name]"
                     value={formData.name}
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
                     placeholder="Name"
-                    className="w-full border border-gray-300 rounded-none px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-black"
+                    className="field__input w-full h-[45px] px-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f]"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">
-                    Email *
-                  </label>
+                <div className="field">
                   <input
                     type="email"
                     required
+                    id="ContactForm-email"
+                    name="contact[email]"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    placeholder="Email"
-                    className="w-full border border-gray-300 rounded-none px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-black"
+                    placeholder="Email *"
+                    className="field__input w-full h-[45px] px-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f]"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">
-                  Phone number
-                </label>
+              <div className="field">
                 <input
                   type="tel"
+                  id="ContactForm-phone"
+                  name="contact[Phone number]"
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
                   placeholder="Phone number"
-                  className="w-full border border-gray-300 rounded-none px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-black"
+                  className="field__input w-full h-[45px] px-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f]"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">
-                  Comment
-                </label>
+              <div className="field">
                 <textarea
-                  rows={6}
+                  rows={8}
                   required
+                  id="ContactForm-body"
+                  name="contact[Comment]"
                   value={formData.comment}
                   onChange={(e) =>
                     setFormData({ ...formData, comment: e.target.value })
                   }
                   placeholder="Comment"
-                  className="w-full border border-gray-300 rounded-none px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-black resize-y"
+                  className="field__input text-area w-full p-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f] resize-y min-h-[140px]"
                 />
               </div>
 
-              <div className="pt-2">
+              <div className="contact__button pt-2">
                 <button
                   type="submit"
-                  className="button inline-flex items-center justify-center px-8 py-3.5 bg-[#020b1f] text-white text-sm font-medium tracking-wide hover:opacity-90 transition"
+                  className="button inline-flex items-center justify-center px-8 py-3 bg-[#020b1f] text-white text-[15px] font-medium tracking-wide hover:opacity-90 transition rounded-[4px] min-h-[48px] min-w-[120px]"
                 >
                   Send
                 </button>

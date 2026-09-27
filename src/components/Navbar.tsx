@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { PRODUCTS } from "@/data/products";
 
@@ -33,12 +33,17 @@ const NAV_LINKS = [
     href: "https://docs.google.com/forms/d/e/1FAIpQLSeZOe_8EyjATHK6vrABFlqzRZJuS0LNcmksJqxxnSaLb6qMWw/viewform",
     external: true,
   },
-  { name: "Track Order", href: "/tracking" },
+  {
+    name: "Track Order",
+    href: "https://veloraa.shiprocket.co/tracking",
+    external: true,
+  },
   { name: "Contact Us", href: "/pages/contact-us" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { totalItems, setIsCartOpen } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -179,10 +184,10 @@ export default function Navbar() {
               </button>
 
               {/* Cart Icon Trigger with Bubble */}
-              <button
-                type="button"
-                onClick={() => setIsCartOpen(true)}
-                className="header__icon header__icon--cart relative p-2 text-[#020b1f] hover:opacity-75 transition"
+              <Link
+                href="/cart"
+                id="cart-icon-bubble"
+                className="header__icon header__icon--cart link focus-inset relative p-2 text-[#020b1f] hover:opacity-75 transition inline-flex items-center"
                 aria-label="Cart"
               >
                 <svg
@@ -201,12 +206,14 @@ export default function Navbar() {
                     fillRule="evenodd"
                   />
                 </svg>
+                <span className="visually-hidden">Cart</span>
                 {totalItems > 0 && (
-                  <span className="cart-count-bubble absolute -top-0.5 -right-0.5 bg-[#020b1f] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-                    {totalItems}
-                  </span>
+                  <div className="cart-count-bubble absolute -top-0.5 -right-0.5 bg-[#020b1f] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                    <span aria-hidden="true">{totalItems}</span>
+                    <span className="visually-hidden">{totalItems} items</span>
+                  </div>
                 )}
-              </button>
+              </Link>
             </div>
           </header>
         </div>
@@ -289,7 +296,16 @@ export default function Navbar() {
 
           <div className="relative w-full max-w-2xl bg-white rounded-lg shadow-2xl p-6 z-10 animate-fade-in">
             <div className="flex items-center justify-between pb-4 border-b border-gray-100">
-              <div className="flex items-center flex-1">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (searchQuery.trim()) {
+                    setSearchOpen(false);
+                    router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                  }
+                }}
+                className="flex items-center flex-1"
+              >
                 <svg
                   className="icon icon-search mr-3 text-gray-400"
                   viewBox="0 0 18 19"
@@ -312,7 +328,7 @@ export default function Navbar() {
                   autoFocus
                   className="w-full text-base sm:text-lg focus:outline-none"
                 />
-              </div>
+              </form>
 
               <button
                 type="button"
