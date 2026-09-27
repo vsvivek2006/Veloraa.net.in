@@ -21,8 +21,13 @@ interface ProductPageProps {
 
 export default function ProductDetailPage({ params }: ProductPageProps) {
   const resolvedParams = use(params);
+  const handle = resolvedParams.handle;
   const product =
-    PRODUCTS.find((p) => p.handle === resolvedParams.handle) || PRODUCTS[0];
+    PRODUCTS.find((p) => p.handle === handle) ||
+    PRODUCTS.find((p) => handle === "5-in-1-bundle" && (p.handle === "ultimate-combo-10000mah" || p.handle === "5-in-1-ultimate-combo")) ||
+    PRODUCTS.find((p) => handle.includes("watch-series-10") && p.handle.includes("watch-series-10")) ||
+    PRODUCTS.find((p) => handle.includes("magsafe") && p.handle.includes("magsafe")) ||
+    PRODUCTS[0];
 
   if (!product) {
     notFound();
@@ -303,60 +308,36 @@ function ProductDetailContent({ product }: { product: Product }) {
               <PincodeChecker />
             </div>
 
-            {/* Exact 3 Veloraa Trust Cards */}
-            <div className="veloraa-trust-section flex flex-col gap-3 mb-6">
-              {/* Card 1: 6 Months Warranty */}
-              <div className="veloraa-trust-card veloraa-warranty flex items-center justify-between p-3.5 bg-white border border-[#edf0f5] border-l-4 border-l-[#2563eb] rounded-lg shadow-xs">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">🛡️</span>
-                  <div>
-                    <h3 className="text-[13px] font-semibold text-[#0f172a] m-0">
-                      6 Months Warranty
-                    </h3>
-                    <p className="text-[11px] text-[#64748b] m-0">
-                      Coverage against manufacturing defects for 6 months.
-                    </p>
-                  </div>
+            {/* Exact 3 Veloraa Trust Cards matching live classes */}
+            <div className="veloraa-trust-section mb-6">
+              {/* 6 MONTHS WARRANTY */}
+              <div className="veloraa-trust-card veloraa-warranty">
+                <div className="veloraa-trust-icon">🛡️</div>
+                <div className="veloraa-trust-text">
+                  <h3>6 Months Warranty</h3>
+                  <p>Coverage against manufacturing defects for 6 months.</p>
                 </div>
-                <span className="text-[10px] font-semibold px-2 py-0.5 bg-[#eff6ff] text-[#2563eb] rounded-full whitespace-nowrap">
-                  Warranty Covered
-                </span>
+                <div className="veloraa-trust-badge">Warranty Covered</div>
               </div>
 
-              {/* Card 2: 7 Days Easy Replacement */}
-              <div className="veloraa-trust-card veloraa-replacement flex items-center justify-between p-3.5 bg-white border border-[#edf0f5] border-l-4 border-l-[#16a34a] rounded-lg shadow-xs">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">🔄</span>
-                  <div>
-                    <h3 className="text-[13px] font-semibold text-[#0f172a] m-0">
-                      7 Days Easy Replacement
-                    </h3>
-                    <p className="text-[11px] text-[#64748b] m-0">
-                      7-day replacement for products received damaged.
-                    </p>
-                  </div>
+              {/* 7 DAY REPLACEMENT */}
+              <div className="veloraa-trust-card veloraa-replacement">
+                <div className="veloraa-trust-icon">🔄</div>
+                <div className="veloraa-trust-text">
+                  <h3>7 Days Easy Replacement</h3>
+                  <p>7-day replacement for products received damaged.</p>
                 </div>
-                <span className="text-[10px] font-semibold px-2 py-0.5 bg-[#f0fdf4] text-[#16a34a] rounded-full whitespace-nowrap">
-                  Damage Covered
-                </span>
+                <div className="veloraa-trust-badge">Damage Covered</div>
               </div>
 
-              {/* Card 3: Quality Checked Before Dispatch */}
-              <div className="veloraa-trust-card veloraa-quality flex items-center justify-between p-3.5 bg-white border border-[#edf0f5] border-l-4 border-l-[#d97706] rounded-lg shadow-xs">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">✅</span>
-                  <div>
-                    <h3 className="text-[13px] font-semibold text-[#0f172a] m-0">
-                      Quality Checked Before Dispatch
-                    </h3>
-                    <p className="text-[11px] text-[#64748b] m-0">
-                      Every product is carefully inspected before dispatch.
-                    </p>
-                  </div>
+              {/* QUALITY CHECK */}
+              <div className="veloraa-trust-card veloraa-quality">
+                <div className="veloraa-trust-icon">✅</div>
+                <div className="veloraa-trust-text">
+                  <h3>Quality Checked Before Dispatch</h3>
+                  <p>Every product is carefully inspected before dispatch.</p>
                 </div>
-                <span className="text-[10px] font-semibold px-2 py-0.5 bg-[#fffbeb] text-[#d97706] rounded-full whitespace-nowrap">
-                  Quality Checked
-                </span>
+                <div className="veloraa-trust-badge">Quality Checked</div>
               </div>
             </div>
 
@@ -422,11 +403,24 @@ function ProductDetailContent({ product }: { product: Product }) {
       {/* 4. Influencer Video UGC Section: "Your Favorite Influencers Trust Veloraa 🤍" (Exact YiiVN4) */}
       <InfluencerReviewsSection />
 
-      {/* 5. FAQ Jump Bar (Exact mUmtdr) */}
+      {/* 5. High-Res Infographic Banner (Exact image_banner_hCj3Hc) */}
+      <section id="shopify-section-template--26661922308414__image_banner_hCj3Hc" className="shopify-section section w-full">
+        <div className="w-full overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="//www.veloraa.co.in/cdn/shop/files/ChatGPT_Image_Jul_4_2026_at_01_00_35_AM.png?v=1783107099&width=3840"
+            alt="Combo Breakdown Infographic"
+            className="w-full h-auto block object-cover"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      {/* 6. FAQ Jump Bar (Exact mUmtdr) */}
       <div className="w-full bg-[#F7F9FD] border-y border-[#E3EAF5]">
         <a
           href="#veloraa-faq"
-          className="flex items-center justify-center gap-2 py-3.5 px-4 text-[#172238] hover:bg-[#F1F6FF] transition text-center"
+          className="flex items-center justify-center gap-2 py-3.5 px-4 text-[#172238] hover:bg-[#F1F6FF] transition text-center no-underline"
         >
           <span className="text-[13px] font-bold">Have any questions in mind?</span>
           <small className="text-[12px] text-[#65758F]">
