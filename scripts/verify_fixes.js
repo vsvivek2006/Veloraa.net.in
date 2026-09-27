@@ -1,40 +1,25 @@
-﻿const { chromium } = require("playwright");
-const path = require("path");
-const fs = require("fs");
+const { chromium } = require('playwright');
 
-const OUT = path.join(__dirname, "screenshots");
+(async () => {
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 
-async function run() {
-  const browser = await chromium.launch({ headless: false, slowMo: 100 });
-  const page = await browser.newPage();
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("http://localhost:3000", { waitUntil: "domcontentloaded", timeout: 30000 });
-  await page.waitForTimeout(3000);
+  // 1. Check PDP Influencer Heading
+  await page.goto('http://localhost:3000/products/5-in-1-bundle', { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(1000);
+  const headingColor = await page.locator('.veloraa-heading h2').evaluate(el => window.getComputedStyle(el).color);
+  console.log('1. PDP Influencer Heading color:', headingColor);
 
-  // Screenshot top
-  await page.screenshot({ path: path.join(OUT, "VERIFY_local_top.png") });
+  // 2. Check CartDrawer / PDP for COD mentions
+  const cartCodText = await page.locator('text=Cash on Delivery').count();
+  console.log('2. PDP COD mentions count:', cartCodText);
 
-  // Screenshot products
-  await page.evaluate(() => window.scrollTo(0, 600));
-  await page.waitForTimeout(800);
-  await page.screenshot({ path: path.join(OUT, "VERIFY_local_products.png") });
-
-  // Metrics
-  const m = await page.evaluate(() => ({
-    countdown_h: document.querySelector(".gta-bar")?.getBoundingClientRect().height,
-    header_h: document.querySelector("header")?.getBoundingClientRect().height,
-    hamburger_display: document.querySelector(".mobile-drawer-btn") ? getComputedStyle(document.querySelector(".mobile-drawer-btn")).display : null,
-    card_h: document.querySelector(".card-wrapper")?.getBoundingClientRect().height,
-    card_media_h: document.querySelector(".card__media")?.getBoundingClientRect().height,
-  }));
-
-  console.log("\n=== VERIFY AFTER FIXES ===");
-  console.log("COUNTDOWN  height:", m.countdown_h, " (LIVE: 64)");
-  console.log("HEADER     height:", m.header_h,   " (LIVE: 183)");
-  console.log("HAMBURGER  display:", m.hamburger_display, " (LIVE: none)");
-  console.log("CARD       height:", m.card_h,     " (LIVE: 402)");
-  console.log("CARD MEDIA height:", m.card_media_h, " (LIVE: 269)");
+  // 3. Check Checkout page
+  await page.goto('http://localhost:3000/checkout', { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(1000);
+  const checkoutCodCount = await page.locator('text=Cash on Delivery').count();
+  const codRadioCount = await page.locator('input[value="COD"]').count();
+  console.log('3. Checkout page COD text count:', checkoutCodCount, 'COD radio count:', codRadioCount);
 
   await browser.close();
-}
-run().catch(e => { console.error(e.message); process.exit(1); });
+})();

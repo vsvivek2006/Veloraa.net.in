@@ -17,13 +17,20 @@ export default function ContactPage() {
   };
 
   return (
-    <main id="MainContent" className="content-for-layout focus-none" role="main" tabIndex={-1}>
-      {/* 1. Main Page Title & Content */}
+    <main
+      id="MainContent"
+      className="content-for-layout focus-none"
+      role="main"
+      tabIndex={-1}
+    >
       <section
         id="shopify-section-template--26661922210110__main"
         className="shopify-section section"
       >
-        <div className="page-width page-width--narrow max-w-[750px] mx-auto px-4 sm:px-6 pt-7 sm:pt-9 pb-4">
+        <div
+          className="page-width page-width--narrow section-template--26661922210110__main-padding"
+          style={{ maxWidth: "750px", margin: "0 auto", padding: "36px 15px 15px" }}
+        >
           <h1
             className="main-page-title page-title h0 scroll-trigger animate--fade-in"
             style={{
@@ -32,140 +39,174 @@ export default function ContactPage() {
               color: "#020b1f",
               fontWeight: 500,
               fontFamily: "'Poppins', sans-serif",
-              marginBottom: "20px",
+              marginBottom: "15px",
             }}
           >
             Contact
           </h1>
-          <div className="rte text-[14px] text-[#2c3e50] space-y-4 leading-[1.6]">
+          <div
+            className="rte scroll-trigger animate--slide-in"
+            style={{
+              fontSize: "14px",
+              lineHeight: "1.7",
+              color: "#2c3e50",
+              fontFamily: "'Poppins', sans-serif",
+            }}
+          >
+            <p>&nbsp;</p>
             <p>
-              Got a question? We are happy to help you. Please contact us using the
-              form below or you can
+              Got a question? We are happy to help you.&nbsp;Please contact us using the form below or you can&nbsp;
             </p>
             <p>
-              Write us at 📩{" "}
-              <a
-                href="mailto:SuppportVeloraa@gmail.com"
-                className="font-bold underline text-[#020b1f]"
-              >
-                SuppportVeloraa@gmail.com
-              </a>
+              <span>
+                Write us at 📩{" "}
+                <strong data-start="3551" data-end="3579">
+                  <a
+                    href="mailto:SuppportVeloraa@gmail.com"
+                    className="decorated-link cursor-pointer"
+                    style={{ color: "#020b1f", textDecoration: "underline" }}
+                  >
+                    SuppportVeloraa@gmail.com
+                  </a>
+                </strong>
+              </span>
             </p>
             <p>
-              <strong>Please expect our reply within 24 to 48 hours.</strong>
+              <strong>Please expect our reply&nbsp;within 24 to 48 hours.&nbsp;</strong>
             </p>
             <p>
-              <strong>Working Hours: (MON-SAT : 11: 00 AM TO 6:00 PM)</strong>
+              <span>
+                <strong>Working Hours: (MON-SAT : 11: 00 AM TO 6:00 PM)</strong>
+              </span>
             </p>
             <p>
-              <strong>Note:</strong> Please attach your Order ID or Phone Number at
-              the time of filling this form so that we can easily track your order
-              detail.
+              <strong>Note:&nbsp;</strong>Please attach your Order ID or Phone Number at the time of filling this form so that we can easily track your order detail.
             </p>
-            <div className="pt-4 border-t border-gray-100 text-[13px] text-[#475569] space-y-1">
-              <p>
-                <strong>Legal Name:</strong> MONIKA ENTERPRISES
-              </p>
-              <p>
-                <strong>GST:</strong> 20DIZTM4361F1ZP
-              </p>
-              <p>
-                <strong>Address:</strong> Plot No. 6-B, Sobhagpura, Main Road,
-                Udaipur-Rajasthan - 313004
-              </p>
-            </div>
+            <p>&nbsp;</p>
+            <p>
+              <strong>
+                Legal Name: MONIKA&nbsp;ENTERPRISES<br />
+                GST: 20DIZTM4361F1ZP<br />
+                Address:&nbsp;<span>Plot No. 6-B, Sobhagpura, Main Road,&nbsp; Udaipur-Rajasthan - 313004</span>
+              </strong>
+            </p>
+            <p>&nbsp;</p>
           </div>
         </div>
       </section>
 
-      {/* 2. Contact Form */}
       <section
         id="shopify-section-template--26661922210110__form"
-        className="shopify-section section pb-16"
+        className="shopify-section section"
       >
-        <div className="contact page-width page-width--narrow max-w-[750px] mx-auto px-4 sm:px-6 pt-4">
-          <h2 className="sr-only">Contact form</h2>
-          {submitted ? (
-            <div className="p-6 bg-[#f0fdf4] border border-[#bbf7d0] rounded-lg text-center text-[#166534]">
-              <h3 className="font-semibold text-base mb-1">
-                Thank you for contacting us!
-              </h3>
-              <p className="text-sm">
-                We have received your message and will respond within 24–48 hours.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} id="ContactForm" className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="color-background-1 gradient">
+          <div
+            className="contact page-width page-width--narrow section-template--26661922210110__form-padding"
+            style={{ maxWidth: "750px", margin: "0 auto", padding: "0 15px 60px" }}
+          >
+            <h2 className="visually-hidden" style={{ display: "none" }}>Contact form</h2>
+            {submitted ? (
+              <div
+                style={{
+                  padding: "20px",
+                  background: "#f0fdf4",
+                  border: "1px solid #bbf7d0",
+                  borderRadius: "4px",
+                  textAlign: "center",
+                  color: "#166534",
+                }}
+              >
+                <h3 style={{ fontWeight: 600, fontSize: "16px", marginBottom: "4px" }}>
+                  Thank you for contacting us!
+                </h3>
+                <p style={{ fontSize: "14px" }}>
+                  We have received your message and will respond within 24–48 hours.
+                </p>
+              </div>
+            ) : (
+              <form
+                method="post"
+                onSubmit={handleSubmit}
+                id="ContactForm"
+                className="isolate scroll-trigger animate--slide-in"
+              >
+                <div className="contact__fields">
+                  <div className="field">
+                    <input
+                      className="field__input"
+                      autoComplete="name"
+                      type="text"
+                      id="ContactForm-name"
+                      name="contact[Name]"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Name"
+                    />
+                    <label className="field__label" htmlFor="ContactForm-name">
+                      Name
+                    </label>
+                  </div>
+                  <div className="field">
+                    <input
+                      autoComplete="email"
+                      type="email"
+                      id="ContactForm-email"
+                      className="field__input"
+                      name="contact[email]"
+                      spellCheck="false"
+                      autoCapitalize="off"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      aria-required="true"
+                      placeholder="Email"
+                      required
+                    />
+                    <label className="field__label" htmlFor="ContactForm-email">
+                      Email <span aria-hidden="true">*</span>
+                    </label>
+                  </div>
+                </div>
+
                 <div className="field">
                   <input
-                    type="text"
-                    required
-                    id="ContactForm-name"
-                    name="contact[Name]"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    placeholder="Name"
-                    className="field__input w-full h-[45px] px-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f]"
+                    type="tel"
+                    id="ContactForm-phone"
+                    className="field__input"
+                    autoComplete="tel"
+                    name="contact[Phone number]"
+                    pattern="[0-9\-]*"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="Phone number"
                   />
+                  <label className="field__label" htmlFor="ContactForm-phone">
+                    Phone number
+                  </label>
                 </div>
+
                 <div className="field">
-                  <input
-                    type="email"
-                    required
-                    id="ContactForm-email"
-                    name="contact[email]"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    placeholder="Email *"
-                    className="field__input w-full h-[45px] px-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f]"
+                  <textarea
+                    rows={10}
+                    id="ContactForm-body"
+                    className="text-area field__input"
+                    name="contact[Comment]"
+                    placeholder="Comment"
+                    value={formData.comment}
+                    onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
                   />
+                  <label className="form__label field__label" htmlFor="ContactForm-body">
+                    Comment
+                  </label>
                 </div>
-              </div>
 
-              <div className="field">
-                <input
-                  type="tel"
-                  id="ContactForm-phone"
-                  name="contact[Phone number]"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  placeholder="Phone number"
-                  className="field__input w-full h-[45px] px-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f]"
-                />
-              </div>
-
-              <div className="field">
-                <textarea
-                  rows={8}
-                  required
-                  id="ContactForm-body"
-                  name="contact[Comment]"
-                  value={formData.comment}
-                  onChange={(e) =>
-                    setFormData({ ...formData, comment: e.target.value })
-                  }
-                  placeholder="Comment"
-                  className="field__input text-area w-full p-4 rounded-[4px] border border-gray-300 text-[14px] text-[#020b1f] focus:outline-none focus:border-[#020b1f] resize-y min-h-[140px]"
-                />
-              </div>
-
-              <div className="contact__button pt-2">
-                <button
-                  type="submit"
-                  className="button inline-flex items-center justify-center px-8 py-3 bg-[#020b1f] text-white text-[15px] font-medium tracking-wide hover:opacity-90 transition rounded-[4px] min-h-[48px] min-w-[120px]"
-                >
-                  Send
-                </button>
-              </div>
-            </form>
-          )}
+                <div className="contact__button">
+                  <button type="submit" className="button">
+                    Send
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </section>
     </main>

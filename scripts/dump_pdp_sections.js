@@ -3,30 +3,35 @@ const fs = require('fs');
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('https://www.veloraa.co.in/products/5-in-1-bundle', { waitUntil: 'networkidle', timeout: 35000 }).catch(() => {});
+  const page = await browser.newPage({ viewport: { width: 1400, height: 900 } });
+  await page.goto('https://www.veloraa.co.in/products/5-in-1-bundle', { waitUntil: 'domcontentloaded' });
   await page.waitForTimeout(3000);
 
-  const data = await page.evaluate(() => {
-    const s3 = document.querySelector('#shopify-section-template--26661922308414__custom_liquid_K4grnV');
-    const s4 = document.querySelector('#shopify-section-template--26661922308414__custom_liquid_YiiVN4');
-    const s5 = document.querySelector('#shopify-section-template--26661922308414__image_banner_hCj3Hc');
-    const s6 = document.querySelector('#shopify-section-template--26661922308414__custom_liquid_mUmtdr');
-    
-    return {
-      s3Html: s3 ? s3.innerHTML : null,
-      s4Html: s4 ? s4.innerHTML : null,
-      s5Html: s5 ? s5.innerHTML : null,
-      s6Html: s6 ? s6.innerHTML : null
-    };
-  });
+  const sectionIds = [
+    'shopify-section-template--26661922308414__custom_liquid_K4grnV', // sec 3
+    'shopify-section-template--26661922308414__custom_liquid_YiiVN4', // sec 4
+    'shopify-section-template--26661922308414__image_banner_hCj3Hc',  // sec 5
+    'shopify-section-template--26661922308414__custom_liquid_mUmtdr', // sec 6
+    'shopify-section-template--26661922308414__17391977265eb60ca1',  // sec 7 (Trustoo)
+    'shopify-section-template--26661922308414__featured_collection_4Q3YAU', // sec 8
+    'shopify-section-template--26661922308414__custom_liquid_im8A6L'  // sec 9 (FAQ)
+  ];
 
-  fs.writeFileSync('scripts/pdp_sections_dump.json', JSON.stringify(data, null, 2));
-  console.log('Saved dump to scripts/pdp_sections_dump.json');
-  console.log('S3 Length:', data.s3Html ? data.s3Html.length : 0);
-  console.log('S4 Length:', data.s4Html ? data.s4Html.length : 0);
-  console.log('S5 Length:', data.s5Html ? data.s5Html.length : 0);
-  console.log('S6 Length:', data.s6Html ? data.s6Html.length : 0);
+  for (let i = 0; i < sectionIds.length; i++) {
+    const id = sectionIds[i];
+    const num = i + 3;
+    const html = await page.evaluate((secId) => {
+      const el = document.getElementById(secId);
+      return el ? el.outerHTML : null;
+    }, id);
+
+    if (html) {
+      fs.writeFileSync(`scripts/sec${num}_live.html`, html);
+      console.log(`Saved sec${num}_live.html (${html.length} bytes)`);
+    } else {
+      console.log(`Section ${id} not found`);
+    }
+  }
+
   await browser.close();
 })();

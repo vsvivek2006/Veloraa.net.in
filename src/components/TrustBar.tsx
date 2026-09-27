@@ -10,8 +10,8 @@ export default function TrustBar() {
     },
     {
       icon: Banknote,
-      title: "CASH ON DELIVERY",
-      desc: "Pay at your doorstep or get ₹200 off prepaid",
+      title: "SECURE PREPAID PAYMENT",
+      desc: "Instant ₹200 Off via UPI / Cards with 256-bit SSL",
     },
     {
       icon: RefreshCw,

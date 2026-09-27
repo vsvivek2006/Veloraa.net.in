@@ -124,12 +124,32 @@ export default function InfluencerReviewsSection() {
   }, [activeVideo]);
 
   return (
-    <section className="veloraa-video-section py-14 bg-[#081A3A] overflow-hidden">
+    <section
+      id="shopify-section-template--26661922308414__custom_liquid_YiiVN4"
+      className="shopify-section section veloraa-video-section py-14 bg-[#081A3A] overflow-hidden"
+    >
       <div className="veloraa-heading text-center mb-8 px-5">
-        <h2 className="text-white text-2xl sm:text-[34px] font-bold leading-tight">
+        <h2
+          className="text-white text-2xl sm:text-[34px] font-bold leading-tight"
+          style={{
+            color: "#ffffff",
+            fontSize: "34px",
+            fontWeight: 700,
+            fontFamily: "Poppins, sans-serif",
+            margin: 0,
+          }}
+        >
           Your Favorite Influencers Trust Veloraa 🤍
         </h2>
-        <p className="mt-2 text-[#999] text-xs sm:text-base">
+        <p
+          className="mt-2 text-[#999] text-xs sm:text-base"
+          style={{
+            color: "#999999",
+            fontSize: "16px",
+            fontFamily: "Poppins, sans-serif",
+            marginTop: "10px",
+          }}
+        >
           Loved by creators. Trusted by 80,000+ customers across India.
         </p>
       </div>

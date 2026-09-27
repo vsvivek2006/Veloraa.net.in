@@ -128,7 +128,10 @@ export default function CustomerReviewsSection() {
   }, []);
 
   return (
-    <section className="veloraa-reviews-section w-full py-12 bg-[#081A3A] overflow-hidden box-border font-sans">
+    <section
+      id="shopify-section-template--26661922308414__custom_liquid_K4grnV"
+      className="shopify-section section veloraa-reviews-section w-full py-12 bg-[#081A3A] overflow-hidden box-border font-sans"
+    >
       <div className="veloraa-reviews-heading text-center px-5 mb-7">
         <h2 className="m-0 text-white text-2xl sm:text-[30px] font-bold leading-tight">
           Hear It From Our Customers ❤️

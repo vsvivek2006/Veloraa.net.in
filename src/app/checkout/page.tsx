@@ -52,9 +52,7 @@ function CheckoutContent() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [pincode, setPincode] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<"PREPAID" | "COD">(
-    isPrepaidDefault ? "PREPAID" : "COD"
-  );
+  const [paymentMethod] = useState<"PREPAID">("PREPAID");
   const [loading, setLoading] = useState(false);
   const [orderComplete, setOrderComplete] = useState<{
     orderId: string;
@@ -68,7 +66,7 @@ function CheckoutContent() {
     0
   );
   // ₹200 instant discount on prepaid orders
-  const prepaidDiscount = paymentMethod === "PREPAID" && subtotal > 500 ? 200 : 0;
+  const prepaidDiscount = subtotal > 500 ? 200 : 0;
   const finalTotal = Math.max(0, subtotal - prepaidDiscount);
 
   const handlePincodeChange = (pin: string) => {
@@ -178,7 +176,7 @@ function CheckoutContent() {
             <div className="flex justify-between">
               <span className="text-gray-500">Payment Mode:</span>
               <span className="font-semibold text-gray-900">
-                {orderComplete.paymentMethod === "PREPAID" ? "Prepaid (UPI/Card)" : "Cash On Delivery (COD)"}
+                Prepaid (UPI/Cards)
               </span>
             </div>
             <div className="flex justify-between pt-1 border-t border-gray-200">
@@ -345,7 +343,7 @@ function CheckoutContent() {
                 </div>
               </div>
 
-              {/* Step 3: Payment Options (Prepaid vs COD) */}
+              {/* Step 3: Payment Options (Prepaid Online Only) */}
               <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-xs space-y-3">
                 <h3 className="text-sm font-bold text-[#020b1f] uppercase tracking-wide flex items-center space-x-2">
                   <CreditCard className="w-4 h-4 text-blue-600" />
@@ -354,71 +352,33 @@ function CheckoutContent() {
 
                 <div className="space-y-3">
                   {/* Prepaid Option with ₹200 OFF badge */}
-                  <label
-                    className={`block p-4 rounded-xl border cursor-pointer transition ${
-                      paymentMethod === "PREPAID"
-                        ? "border-[#020b1f] bg-blue-50/40 ring-2 ring-[#020b1f]"
-                        : "border-gray-200 hover:border-gray-300 bg-white"
-                    }`}
-                  >
+                  <div className="block p-4 rounded-xl border border-[#020b1f] bg-blue-50/40 ring-2 ring-[#020b1f]">
                     <div className="flex items-start justify-between">
                       <div className="flex items-start space-x-3">
                         <input
                           type="radio"
                           name="paymentMethod"
-                          checked={paymentMethod === "PREPAID"}
-                          onChange={() => setPaymentMethod("PREPAID")}
+                          checked={true}
+                          readOnly
                           className="mt-1"
                         />
                         <div>
                           <div className="flex items-center space-x-2">
                             <span className="text-xs font-bold text-gray-900">
-                              Pay Online (UPI / GPay / PhonePe / Cards)
+                              Pay Online (UPI / GPay / PhonePe / Cards / Net Banking)
                             </span>
                             <span className="bg-green-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">
                               FLAT ₹200 OFF
                             </span>
                           </div>
                           <p className="text-[11px] text-gray-500 mt-1">
-                            Save ₹200 instantly + Free Surprise Gift + Zero contact delivery.
+                            Save ₹200 instantly + Free Surprise Gift + Zero contact express delivery.
                           </p>
                         </div>
                       </div>
                       <Zap className="w-5 h-5 text-amber-500 fill-amber-500 shrink-0" />
                     </div>
-                  </label>
-
-                  {/* Cash On Delivery Option */}
-                  <label
-                    className={`block p-4 rounded-xl border cursor-pointer transition ${
-                      paymentMethod === "COD"
-                        ? "border-[#020b1f] bg-blue-50/40 ring-2 ring-[#020b1f]"
-                        : "border-gray-200 hover:border-gray-300 bg-white"
-                    }`}
-                  >
-                    <div className="flex items-start space-x-3">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        checked={paymentMethod === "COD"}
-                        onChange={() => setPaymentMethod("COD")}
-                        className="mt-1"
-                      />
-                      <div>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-xs font-bold text-gray-900">
-                            Cash on Delivery (COD)
-                          </span>
-                          <span className="text-[10px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
-                            Standard
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-gray-500 mt-1">
-                          Pay cash or UPI to the delivery courier when your order arrives at your door.
-                        </p>
-                      </div>
-                    </div>
-                  </label>
+                  </div>
                 </div>
               </div>
 
@@ -429,12 +389,10 @@ function CheckoutContent() {
                 className="w-full bg-[#020b1f] hover:bg-[#06153d] text-white py-4 rounded-xl font-extrabold text-sm sm:text-base shadow-xl transition flex items-center justify-center space-x-2"
               >
                 {loading ? (
-                  <span>Processing Shipment...</span>
+                  <span>Processing Payment...</span>
                 ) : (
                   <span>
-                    {paymentMethod === "PREPAID"
-                      ? `CONFIRM & PAY ₹${finalTotal.toLocaleString("en-IN")}`
-                      : `PLACE COD ORDER (₹${finalTotal.toLocaleString("en-IN")})`}
+                    CONFIRM & PAY ₹{finalTotal.toLocaleString("en-IN")}
                   </span>
                 )}
               </button>

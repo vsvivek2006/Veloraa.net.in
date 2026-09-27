@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "VelorAa.co.in | Premium Tech Combos & Audio",
     description:
-      "Get up to 70% off on 5-in-1 tech combos with Cash on Delivery & 1-Year Warranty across India.",
+      "Get up to 70% off on 5-in-1 tech combos with Express Delivery & 1-Year Warranty across India.",
     url: "https://www.veloraa.co.in",
     siteName: "VelorAa.co.in",
     type: "website",
@@ -48,7 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${poppins.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans bg-white text-gray-900 selection:bg-blue-600 selection:text-white">
+      <body className="min-h-full flex flex-col font-sans bg-white text-gray-900 selection:bg-blue-600 selection:text-white overflow-x-hidden">
         <CartProvider>
           <ScrollAnimationObserver />
           <TopCountdownBar />

@@ -42,7 +42,7 @@ export default function PincodeChecker() {
       <div className="flex items-center justify-between">
         <span className="text-xs font-bold text-gray-800 uppercase tracking-wide flex items-center space-x-1.5">
           <MapPin className="w-3.5 h-3.5 text-blue-600" />
-          <span>Check Delivery Time & COD</span>
+          <span>Check Delivery Time</span>
         </span>
         <span className="text-[10px] text-gray-500 font-medium">
           Shiprocket Express
@@ -78,7 +78,7 @@ export default function PincodeChecker() {
             <span>{result.edd} (Express Air)</span>
           </div>
           <p className="text-[11px] text-gray-500 pl-5.5">
-            Cash on Delivery (COD) is available at pincode <strong>{pincode}</strong>.
+            Express delivery available at pincode <strong>{pincode}</strong>.
           </p>
         </div>
       )}

@@ -98,8 +98,18 @@ export const PRODUCTS: Product[] = [
     compareAtPrice: 2299,
     discountPercent: 35,
     images: [
-      "https://cdn.shopify.com/s/files/1/0884/6606/3678/files/ChatGPT_Image_Jul_4_2026_at_01_35_25_AM.png?v=1783109171&width=533",
-      "https://cdn.shopify.com/s/files/1/0884/6606/3678/files/combo_img-_3.png?v=1771663350&width=533"
+      "https://www.veloraa.co.in/cdn/shop/files/ChatGPT_Image_Jul_4_2026_at_01_35_25_AM.png?v=1783109171&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/ChatGPT_Image_Jul_4_2026_at_01_35_17_AM.png?v=1783109171&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/Zexxus_Creatives-13.png?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/sdw_1296x1296_97071c39-db28-46d3-8e92-8ee87ea4c7ff.webp?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/wirelesschargerboldacc_1024x1024_2x_1296x1296_1adf6364-b8ba-4da5-959a-95826b0c88cd.webp?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/Gray_Orange_Minimalist_Product_Combo_Fashion_Instagram_Post-25.png?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/Untitled_design-30.png?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/61goZoq-rVL._SL1500.jpg?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/Gray_Orange_Minimalist_Product_Combo_Fashion_Instagram_Post-26.png?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/Gray_Orange_Minimalist_Product_Combo_Fashion_Instagram_Post-24.png?v=1772452869&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/Gray_Orange_Minimalist_Product_Combo_Fashion_Instagram_Post-27.png?v=1772452901&width=1946",
+      "https://www.veloraa.co.in/cdn/shop/files/30_82cace85-a82b-41f2-8789-898585e021c2.png?v=1772452869&width=1946"
     ],
     variants: [
       { id: "v2-1", title: "Standard ANC / 5-in-1 Combo", price: 1499, compareAtPrice: 2299 },
@@ -467,8 +477,8 @@ export const FAQS: FAQ[] = [
     a: "Once your order is dispatched, you will receive live SMS and WhatsApp tracking updates. You can also enter your Order ID or AWB on our dedicated /track-order page for real-time live tracking."
   },
   {
-    q: "Is Cash on Delivery (COD) available?",
-    a: "Yes! Cash on Delivery is available across 19,000+ Indian pincodes. However, if you choose Prepaid (UPI/Cards), you get an Instant ₹200 FLAT Discount + a FREE surprise gift."
+    q: "What payment methods are accepted?",
+    a: "We accept 100% secure online payments including UPI (Google Pay, PhonePe, Paytm), Credit/Debit Cards, and Net Banking with 256-bit SSL encryption. All prepaid orders receive an Instant ₹200 FLAT Discount + FREE Express Delivery."
   },
   {
     q: "What is the warranty and return policy?",

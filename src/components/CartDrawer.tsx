@@ -185,17 +185,8 @@ export default function CartDrawer() {
                   onClick={() => setIsCartOpen(false)}
                   className="w-full bg-[#020b1f] hover:bg-[#06153d] text-white py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 shadow-md transition group"
                 >
-                  <span>Pay Online & Get ₹200 OFF</span>
+                  <span>Checkout • Extra ₹200 OFF</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-
-                {/* COD Button */}
-                <Link
-                  href="/checkout?prepaid=false"
-                  onClick={() => setIsCartOpen(false)}
-                  className="w-full bg-white hover:bg-gray-100 border border-gray-300 text-gray-900 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center transition"
-                >
-                  Order via Cash on Delivery
                 </Link>
               </div>
 

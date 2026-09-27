@@ -38,7 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 src={mainImage}
                 alt={product.title}
                 className="motion-reduce"
-                loading="lazy"
+                loading="eager"
                 width="1080"
                 height="1080"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
@@ -77,6 +77,49 @@ export default function ProductCard({ product }: ProductCardProps) {
               >
                 {product.title}
               </Link>
+              {product.reviewCount > 0 && (
+                <div
+                  className="collection-icon-list vstar-star"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "2px",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                  }}
+                  data-review-num={product.reviewCount}
+                >
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <div key={star} className="star-item" style={{ display: "inline-flex", alignItems: "center" }}>
+                      <svg
+                        className="trustoo-rating-icon"
+                        width="16"
+                        height="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 18 17"
+                        fill="none"
+                      >
+                        <path
+                          fill="#FFA800"
+                          d="M8.89062 0.565613L11.4299 6.07066L17.4501 6.78446L12.9992 10.9006L14.1807 16.8468L8.89062 13.8856L3.60056 16.8468L4.78206 10.9006L0.331117 6.78446L6.35139 6.07066L8.89062 0.565613Z"
+                        />
+                      </svg>
+                    </div>
+                  ))}
+                  <div
+                    className="tt-rating-text collection-reviews-num"
+                    style={{
+                      fontSize: "14px",
+                      color: "#020b1f",
+                      marginLeft: "4px",
+                      fontFamily: "'Poppins', sans-serif",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    ({product.reviewCount})
+                  </div>
+                </div>
+              )}
             </h3>
             <div className="card-information">
               <div className={`price ${isSale ? "price--on-sale" : ""}`}>

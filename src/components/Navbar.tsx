@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
@@ -48,9 +48,15 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const headerSectionRef = useRef<HTMLDivElement>(null);
+  const [headerBottom, setHeaderBottom] = useState(180);
 
-  // Lock body scroll when mobile menu or search modal is open
+  // Lock body scroll and measure header bottom when mobile menu or search modal is open
   useEffect(() => {
+    if (mobileMenuOpen && headerSectionRef.current) {
+      const rect = headerSectionRef.current.getBoundingClientRect();
+      setHeaderBottom(rect.bottom);
+    }
     if (mobileMenuOpen || searchOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -70,42 +76,60 @@ export default function Navbar() {
   return (
     <>
       <div
+        ref={headerSectionRef}
         id="shopify-section-sections--26661918277950__header"
         className="shopify-section shopify-section-group-header-group section-header relative bg-white"
       >
         <div className="header-wrapper color-background-1 gradient border-b border-[#020b1f]/10">
           <header
-            className="header header--middle-left header--mobile-center page-width header--has-menu relative flex items-center justify-between"
-            style={{ padding: "20px 50px 36px 50px" }}
+            className="header header--middle-left header--mobile-center page-width header--has-menu relative grid grid-cols-[auto_1fr_auto] items-center px-4 sm:px-6 lg:px-12 py-3 lg:py-4 gap-2 lg:gap-4"
           >
-            {/* Mobile Hamburger Drawer Button — hidden on desktop ≥990px like live site */}
-            <div className="mobile-drawer-btn items-center" style={{ display: "none" }} id="header-drawer">
+            {/* Mobile Hamburger Drawer Button */}
+            <div className="mobile-drawer-btn items-center" id="header-drawer">
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(true)}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="header__icon header__icon--menu p-2 text-[#020b1f]"
-                aria-label="Menu"
+                aria-label={mobileMenuOpen ? "Close menu" : "Menu"}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  focusable="false"
-                  className="icon icon-hamburger"
-                  fill="none"
-                  viewBox="0 0 18 16"
-                  width="18"
-                  height="16"
-                >
-                  <path
-                    d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z"
-                    fill="currentColor"
-                  />
-                </svg>
+                {mobileMenuOpen ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    focusable="false"
+                    className="icon icon-close"
+                    fill="none"
+                    viewBox="0 0 18 17"
+                    width="18"
+                    height="17"
+                  >
+                    <path
+                      d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    focusable="false"
+                    className="icon icon-hamburger"
+                    fill="none"
+                    viewBox="0 0 18 16"
+                    width="18"
+                    height="16"
+                  >
+                    <path
+                      d="M1 .5a.5.5 0 100 1h15.71a.5.5 0 000-1H1zM.5 8a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1A.5.5 0 01.5 8zm0 7a.5.5 0 01.5-.5h15.71a.5.5 0 010 1H1a.5.5 0 01-.5-.5z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                )}
               </button>
             </div>
 
             {/* Logo */}
-            <h1 className="header__heading my-0 leading-none">
+            <h1 className="header__heading my-0 leading-none flex justify-center lg:justify-start shrink-0">
               <Link
                 href="/"
                 className="header__heading-link link link--text focus-inset inline-block"
@@ -125,8 +149,8 @@ export default function Navbar() {
             </h1>
 
             {/* Desktop Navigation Menu */}
-            <nav className="header__inline-menu desktop-menu items-center ml-6">
-              <ul className="list-menu list-menu--inline flex items-center flex-wrap list-none m-0 p-0" role="list">
+            <nav className="header__inline-menu desktop-menu items-center justify-center flex-1 mx-2 lg:mx-6">
+              <ul className="list-menu list-menu--inline flex items-center justify-center flex-wrap list-none m-0 p-0" role="list">
                 {NAV_LINKS.map((link, idx) => {
                   const isActive = pathname === link.href;
                   return (
@@ -157,7 +181,7 @@ export default function Navbar() {
             </nav>
 
             {/* Icons: Search & Cart */}
-            <div className="header__icons flex items-center gap-2">
+            <div className="header__icons flex items-center justify-end gap-2 justify-self-end shrink-0">
               {/* Search Icon Trigger */}
               <button
                 type="button"
@@ -184,9 +208,10 @@ export default function Navbar() {
               </button>
 
               {/* Cart Icon Trigger with Bubble */}
-              <Link
-                href="/cart"
+              <button
+                type="button"
                 id="cart-icon-bubble"
+                onClick={() => setIsCartOpen(true)}
                 className="header__icon header__icon--cart link focus-inset relative p-2 text-[#020b1f] hover:opacity-75 transition inline-flex items-center"
                 aria-label="Cart"
               >
@@ -213,73 +238,60 @@ export default function Navbar() {
                     <span className="visually-hidden">{totalItems} items</span>
                   </div>
                 )}
-              </Link>
+              </button>
             </div>
           </header>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Drawer (Dawn 1:1 Full-Width Dropdown below Header) */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden">
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-
-          <div className="relative w-4/5 max-w-xs bg-white h-full shadow-2xl z-10 flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-gray-100">
-              <span className="text-sm font-semibold tracking-wider text-[#020b1f] uppercase">
-                Menu
-              </span>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-1 text-gray-500 hover:text-black"
-                aria-label="Close menu"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-close"
-                  fill="none"
-                  viewBox="0 0 18 17"
-                  width="18"
-                  height="17"
-                >
-                  <path
-                    d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <nav className="flex-1 overflow-y-auto py-2">
-              <ul className="list-menu divide-y divide-gray-100">
-                {NAV_LINKS.map((link, idx) => (
-                  <li key={idx}>
-                    {link.external ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block px-5 py-3 text-sm text-[#020b1f] hover:bg-gray-50"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </a>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className={`block px-5 py-3 text-sm text-[#020b1f] hover:bg-gray-50 ${
-                          pathname === link.href ? "font-semibold bg-gray-50" : ""
-                        }`}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </Link>
-                    )}
-                  </li>
-                ))}
+        <div
+          id="menu-drawer"
+          className="fixed left-0 right-0 bottom-0 bg-white overflow-y-auto lg:hidden"
+          style={{
+            top: `${headerBottom}px`,
+            borderTop: "1px solid #E3EAF5",
+            fontFamily: "Poppins, sans-serif",
+            visibility: "visible",
+            transform: "none",
+            zIndex: 9999,
+            backgroundColor: "#ffffff",
+          }}
+        >
+          <div className="menu-drawer__inner-container py-1">
+            <nav className="menu-drawer__navigation py-2">
+              <ul className="menu-drawer__menu list-menu list-none p-0 m-0" role="list">
+                {NAV_LINKS.map((link, idx) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <li key={idx} className="border-b border-[#020b1f]/5 last:border-b-0">
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`menu-drawer__menu-item list-menu__item link link--text block text-[18px] text-[#020b1f] hover:bg-[#F3F4F6] transition px-8 py-[11px] ${
+                            isActive ? "bg-[#F3F4F6] font-semibold" : "font-normal"
+                          }`}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className={`menu-drawer__menu-item list-menu__item link link--text block text-[18px] text-[#020b1f] hover:bg-[#F3F4F6] transition px-8 py-[11px] ${
+                            isActive ? "bg-[#F3F4F6] font-semibold" : "font-normal"
+                          }`}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.name}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </div>
