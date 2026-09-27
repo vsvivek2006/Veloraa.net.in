@@ -1,69 +1,83 @@
-import Image from "next/image";
+import React from "react";
+import Link from "next/link";
+import HeroBanner from "@/components/HeroBanner";
+import SecondaryBanner from "@/components/SecondaryBanner";
+import ProductCard from "@/components/ProductCard";
+import { PRODUCTS } from "@/data/products";
 
-export default function Home() {
+export default function HomePage() {
+  // Exact 8 products displayed on Veloraa's homepage grid
+  const featuredHandles = [
+    "ultimate-combo-10000mah",
+    "watch-series-10-free-pro-2nd-gen",
+    "veloraa-watch-10-smartwatch",
+    "veloraa-magsafe-battery-pack",
+    "veloraa-watch-ultra-49mm",
+    "veloraa-foldaway-3-in-1-charger",
+    "vpods-pro-2nd-gen-usa-quality",
+    "vpods-max-anc",
+  ];
+
+  const featuredProducts = featuredHandles
+    .map((handle) => PRODUCTS.find((p) => p.handle === handle))
+    .filter(Boolean) as typeof PRODUCTS;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main
+      id="MainContent"
+      className="content-for-layout focus-none"
+      role="main"
+      tabIndex={-1}
+    >
+      {/* 1. Exact Veloraa Hero Banner */}
+      <HeroBanner />
+
+      {/* 2. Featured Collection Section */}
+      <section
+        id="shopify-section-template--26661922144574__featured_collection_DMqcQx"
+        className="shopify-section section"
+      >
+        <div className="color-background-1 isolate gradient">
+          <div className="collection section-template--26661922144574__featured_collection_DMqcQx-padding py-8 sm:py-11">
+            <div className="collection__title title-wrapper title-wrapper--no-top-margin page-width mb-6 sm:mb-8">
+              <h2 className="title inline-richtext h1 scroll-trigger animate--slide-in">Featured Products</h2>
+            </div>
+
+            <div className="page-width page-width-desktop">
+              <ul
+                id="Slider-template--26661922144574__featured_collection_DMqcQx"
+                className="grid product-grid contains-card contains-card--product contains-card--standard grid--4-col-desktop grid--2-col-tablet-down list-none p-0 m-0"
+                role="list"
+              >
+                {featuredProducts.map((product, idx) => (
+                  <li
+                    key={product.id}
+                    id={`Slide-template--26661922144574__featured_collection_DMqcQx-${idx + 1}`}
+                    className="grid__item scroll-trigger animate--slide-in"
+                    data-cascade
+                    style={{ "--animation-order": idx + 1 } as React.CSSProperties}
+                  >
+                    <ProductCard product={product} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="center collection__view-all text-center mt-8 sm:mt-10 scroll-trigger animate--slide-in">
+              <Link
+                href="/collections/all"
+                className="button inline-flex items-center justify-center px-8 py-3 bg-[#020b1f] text-white text-[15px] font-medium tracking-[0.1rem] hover:opacity-90 transition min-w-[122px] min-h-[47px]"
+                aria-label="View all products in the Home page collection"
+              >
+                View all
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      {/* 3. Exact Veloraa Secondary Image Banner */}
+      <SecondaryBanner />
+    </main>
   );
 }
