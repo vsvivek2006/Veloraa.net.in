@@ -215,6 +215,29 @@ export default function Footer() {
             margin: "0 auto",
             padding: "0 50px",
             display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            minHeight: "15px",
+            marginBottom: "16px",
+          }}
+        >
+          <div className="footer__column footer__localization isolate"></div>
+          <div className="footer__column footer__column--info">
+            <div className="footer__payment">
+              <span className="visually-hidden">Payment methods</span>
+              <ul className="list list-payment" role="list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="footer__content-bottom-wrapper page-width"
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            padding: "0 50px",
+            display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
             width: "100%",

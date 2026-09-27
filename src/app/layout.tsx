@@ -54,7 +54,7 @@ export default function RootLayout({
           <TopCountdownBar />
           <AnnouncementBar />
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <div className="flex-grow">{children}</div>
           <CartDrawer />
           <Footer />
           <FloatingReviewsTab />
